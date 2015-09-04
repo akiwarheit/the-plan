@@ -1,6 +1,6 @@
 # The Plan
 
-Android library with basic adapters to get to up-to-speed in development.
+##### Android library with basic adapters to get to up-to-speed in development.
 
 Features
 ----
