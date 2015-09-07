@@ -2,6 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+version '0.0.1-BETA'
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
@@ -10,13 +17,22 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName '0.0.1-BETA'
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
     }
 }
 
@@ -29,21 +45,18 @@ dependencies {
 
 def siteUrl = 'https://github.com/indiehortelano/the-plan'      // Homepage URL of the library
 def gitUrl = 'https://github.com/indiehortelano/the-plan.git'   // Git repository URL
-group = "com.keeboi"                                        // Maven Group ID for the artifact
+group = "com.keeboi.theplan"                                    // Maven Group ID for the artifact
 
 install {
     repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
         pom {
             project {
                 packaging 'aar'
-                groupId 'com.keeboi'
-                artifactId 'theplan'
-                version '0.0.1-BETA'
 
-                // Add your description here
+                artifactId 'theplan'
                 name 'Provides view adapter for listview.'
                 url siteUrl
+                version '0.0.1-BETA'
 
                 // Set your license
                 licenses {
@@ -63,7 +76,6 @@ install {
                     connection gitUrl
                     developerConnection gitUrl
                     url siteUrl
-
                 }
             }
         }
@@ -96,17 +108,18 @@ bintray {
     user = properties.getProperty('bintray.user')
     key = properties.getProperty('bintray.apikey')
 
+    publish = true
+
     configurations = ['archives']
     pkg {
-        repo = "maven"
-        name = "theplan"
-        vcsUrl = "https://github.com/indiehortelano/the-plan.git"
+        repo = 'maven'
+        name = 'theplan'
+        vcsUrl = 'https://github.com/indiehortelano/the-plan.git'
         licenses = ["Apache-2.0"]
-        publish = true
 
         version {
             name = '0.0.1-BETA'
-            released = new Date()
+            desc = 'Beta release'
         }
     }
 }
