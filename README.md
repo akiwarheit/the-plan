@@ -76,20 +76,20 @@ public class UserViewModel extends ViewModel<User> {
 }
 ```
 
-Initialize `ViewableListAdapter` (`this` refers to an `Activity`)
+Afterwards, I can initialize a `ViewableListAdapter` (`this` refers to an `Activity`)
 
 ```java
 adapter = new ViewableListAdapter<>(this); // creates an empty adapter
 adapter = new ViewableListAdapter<>(this, myListOfUsers); // you can also pass a reference to your own list
 ```
 
-Now you have your `ViewableListAdapter` ready to be set to your list view.
+Now I can set it as my list adapter and I'm done!
 
 ```java
 listView.setAdapter(adapter);
 ```
 
-When you've updated your list of view models (adding, removing, editting, whatever), simply call
+If ever I have changes to the data set, I can simply let the adapter know
 
 ```java
 adapter.notifyDataSetChanged();
