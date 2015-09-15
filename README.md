@@ -8,7 +8,25 @@ Features
 1. `ViewableListAdapter`
 2. `ViewModel`
 
-###### Installation
+Installation
+----
+
+Add the ff. maven repository and library to your project via gradle
+
+```
+repositories {
+    maven { url 'https://dl.bintray.com/indiehortelano/maven/' }
+}
+
+// bunch of stuff
+
+dependencies {
+    compile 'com.keeboi.theplan:theplan:0.0.1-BETA@aar'
+}
+```
+
+Usage
+----
 
 *(NOTE: Please read about convert view before proceeding)*
 
