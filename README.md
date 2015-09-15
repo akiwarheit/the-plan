@@ -1,6 +1,6 @@
 # The Plan
 
-###### Android library with basic adapters to get to up-to-speed in development.
+###### Android library with basic adapters to get to up-to-speed in displaying lists
 
 Features
 ----
@@ -10,37 +10,72 @@ Features
 
 ###### Installation
 
-Sample ViewModel usage:
+*(NOTE: Please read about convert view before proceeding)*
+
+Given that I have an object as follows:
 
 ```java
-public class SampleViewModel extends ViewModel<Model> {
-    ...
+public class User {
+    
+    private String name;
+    
+    private String occupation;
 
-    public SampleViewModel (Model m) {
-        super(m);
-    }
+    public String getName();
+    
+    public String getOccupation();
+    
+    // setters ...
 
-    //override getView since ViewModel implements Viewable
-    public View getView (
-        ...
-        return view;
-    )
 }
 ```
 
-Declare ViewableListAdapter inside your activity/fragment like this:
+I can simply wrap it around a `ViewModel` class and implement it's methods 
 
 ```java
-public ViewableListAdapter<SampleViewModel> adapter;
+public class UserViewModel extends ViewModel<User> {
+
+    public UserViewModel (User model) {
+        super(model); // lol
+    }
+
+    //override getView since ViewModel implements Viewable
+    public View getView(int position, LayoutInflater inflater, View convertView, ViewGroup parent) {
+        View view = null // The view of each row
+        
+        // We check the convertView if it's null, this is basically a view already inflated and is just being recycled
+        if(convertView == null) {
+            view = inflater.inflate(R.layout.layout_user_row, null, false);
+        } else {
+            view = convertView;
+        }
+    
+        ((TextView) view.findViewById(R.id.name)).setText(getObject.getName());
+        ((TextView) view.findViewById(R.id.occupation)).setText(getObject.getOccupation());
+    
+        return view;
+    }
+}
 ```
 
-Initialize ViewableListAdapter when activity is already created like this:
+Initialize `ViewableListAdapter` (`this` refers to an `Activity`)
+
 ```java
-adapter = new ViewableListAdapter<>(<LIST OF MODELS>); or
-adapter = new ViewableListAdapter<>(<CONTEXT>, <LIST OF MODELS>);
+adapter = new ViewableListAdapter<>(this); # models
+adapter = new ViewableListAdapter<>(this, new ArrayList<UserViewModel>());
 ```
 
-Now you have your ViewableListAdapter ready to be set to your list view.
+Now you have your `ViewableListAdapter` ready to be set to your list view.
+
+```java
+listView.setAdapter(adapter);
+```
+
+When you've updated your list of view models (adding, removing, editting, whatever), simply call
+
+```java
+adapter.notifyDataSetChanged();
+```
 
 ## Notice
 Copyright 2015 XLR8 Ventures Inc.
