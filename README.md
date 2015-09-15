@@ -79,8 +79,8 @@ public class UserViewModel extends ViewModel<User> {
 Initialize `ViewableListAdapter` (`this` refers to an `Activity`)
 
 ```java
-adapter = new ViewableListAdapter<>(this); # models
-adapter = new ViewableListAdapter<>(this, new ArrayList<UserViewModel>());
+adapter = new ViewableListAdapter<>(this); // creates an empty adapter
+adapter = new ViewableListAdapter<>(this, myListOfUsers); // you can also pass a reference to your own list
 ```
 
 Now you have your `ViewableListAdapter` ready to be set to your list view.
