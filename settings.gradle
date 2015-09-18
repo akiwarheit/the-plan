@@ -1,1 +1,1 @@
-include ':theplan'
+include ':theplan', ':test'
